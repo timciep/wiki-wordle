@@ -1,6 +1,6 @@
 # WikiWordle
 
-[wikiwordle.timcieplowski.com](https://wikiwordle.timcieplowski.com)
+Live: [wikiwordle.timcieplowski.com](https://wikiwordle.timcieplowski.com)
 
 A [Wikipedia](https://en.wikipedia.org) article guessing game.
 
