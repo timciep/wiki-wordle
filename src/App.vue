@@ -64,7 +64,9 @@ export default {
     async newWord() {
       this.loading = true;
 
-      const word_result = await wiki().api({
+      const word_result = await wiki({
+        apiUrl: 'https://en.wikipedia.org/w/api.php'
+      }).api({
         list: 'mostviewed',
         pvimlimit: 1,
         pvimoffset: Math.floor(Math.random() * 999) + 1,
@@ -76,7 +78,9 @@ export default {
 
       this.word = word_result[0].title;
 
-      const Page = await wiki().page(this.word);
+      const Page = await wiki({
+        apiUrl: 'https://en.wikipedia.org/w/api.php'
+      }).page(this.word);
 
       this.word_url = Page.fullurl;
 
