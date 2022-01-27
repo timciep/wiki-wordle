@@ -1,24 +1,7 @@
-# vue-app
+# WikiWordle
 
-## Project setup
-```
-npm install
-```
+[wikiwordle.timcieplowski.com](https://wikiwordle.timcieplowski.com)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+A [Wikipedia](https://en.wikipedia.org) article guessing game.
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Inspired by [Wordle](https://www.powerlanguage.co.uk/wordle/), built with [Vue.js](https://vuejs.org/).
