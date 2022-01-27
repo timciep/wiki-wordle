@@ -1,11 +1,20 @@
 <template>
   <div>
+    <div class="mb-3">
+      <div class="w-20 text-xs rounded bg-gray-300 py-1 text-center lg:hidden">
+        Keyboard
+        <input type="text" value="x" class="w-full absolute opacity-0 cursor-pointer left-0">
+      </div>
+    </div>
+
     <div class="flex flex-wrap gap-1">
       <div v-for="letter, idx in word_status" :key="idx"
       :class="[
         letter.letter === ' ' ? 'w-full h-0' : ''
       ]">
         <div v-if="letter.letter !== ' '">
+          <!-- <input type="text" value="x" class="w-2 absolute opacity-0"> -->
+
           <button v-if=" ! letter.free"
           @click="active_idx = idx"
           type="button"
