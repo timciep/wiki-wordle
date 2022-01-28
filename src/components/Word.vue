@@ -48,6 +48,12 @@
     </div>
 
     <div class="mt-3 text-left flex gap-3">
+      <button class="py-1 px-3 text-md rounded bg-blue-800 hover:bg-blue-500 text-white"
+      type="button"
+      @click="hint()">
+        Hint
+      </button>
+
       <button type="button"
       v-if=" ! correctAnswer"
       @click="reveal()"
@@ -56,11 +62,11 @@
         [enter]
       </button>
 
-      <button class="py-1 px-3 text-md rounded bg-blue-800 hover:bg-blue-500 text-white"
-        type="button"
-        @click="$emit('newWord')">
-          New [tab]
-        </button>
+      <button class="py-1 px-3 text-md rounded bg-green-800 hover:bg-green-500 text-white"
+      type="button"
+      @click="$emit('newWord')">
+        New [tab]
+      </button>
     </div>
   </div>
 </template>
@@ -154,6 +160,16 @@ export default {
         element.guess = element.letter;
       });
     },
+
+    hint() {
+      for (let i=0; i < 3; i++) {
+        let letter = _.sample(_.filter(this.word_status, (_letter) => {
+          return _letter.letter !== _letter.guess;
+        }));
+
+        letter.guess = letter.letter;
+      }
+    }
   },
 
   computed: {
