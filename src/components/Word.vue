@@ -49,13 +49,14 @@
 
     <div class="mt-3 text-left flex gap-3">
       <button class="py-1 px-3 text-md rounded bg-blue-800 hover:bg-blue-500 text-white"
+      v-show=" ! correctAnswer"
       type="button"
       @click="hint()">
         Hint
       </button>
 
       <button type="button"
-      v-if=" ! correctAnswer"
+      v-show=" ! correctAnswer"
       @click="reveal()"
       class="rounded bg-gray-800 hover:bg-gray-500 text-white text-md py-1 px-3">
         Reveal
@@ -162,12 +163,14 @@ export default {
     },
 
     hint() {
-      for (let i=0; i < 3; i++) {
+      for (let i=0; i < 3; i++) { // reveal 3 unrevealed letters.
         let letter = _.sample(_.filter(this.word_status, (_letter) => {
           return _letter.letter !== _letter.guess;
         }));
 
-        letter.guess = letter.letter;
+        if (letter) {
+          letter.guess = letter.letter;
+        }
       }
     }
   },
