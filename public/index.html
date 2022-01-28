@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel="manifest" href="/site.webmanifest">
+
     <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
   <body>
@@ -13,5 +15,30 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+
+    <!-- Start AllRoads Snippet -->
+    <script>
+    ! function(e, t, n, a, p, r, s) {
+    e[a] || ((p = e[a] = function() {
+    p.process ? p.process.apply(p, arguments) : p.queue.push(arguments)
+    }).queue = [], p.t = + new Date, (r = t.createElement(n)).async = 1, r.src = "https://cdn.allroadsanalytics.com/allroads.min.js", (s = t.getElementsByTagName(n)[0]).parentNode.insertBefore(r, s))
+    }(window, document, "script", "allroads"),
+    allroads("init", "ID-timcom", {follow: true}),
+    allroads("event", "pageload");
+    </script>
+    <!-- End AllRoads Snippet -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V1F8PRD2TM"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-V1F8PRD2TM');
+    </script>
+    <!-- End Global site tag (gtag.js) - Google Analytics -->
+
+
   </body>
 </html>
