@@ -24,9 +24,9 @@
           {{ clean_word_summary }}
         </div>
 
-        <div class="mt-2">
+        <div class="mt-1">
           <a :href="word_url" target="_blank"
-          class="text-blue-800 hover:text-blue-500">
+          class="text-blue-800 hover:text-blue-500 text-sm">
             Full Article
             &nearr;
           </a>
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div class="text-xs text-center mb-5">
+    <div class="text-xs text-center mt-12 mb-5">
       Created by
       <a href="https://www.timcieplowski.com/" target="_blank"
       class="text-blue-800 hover:text-blue-500">
