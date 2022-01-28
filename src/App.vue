@@ -72,11 +72,21 @@ export default {
         pvimoffset: Math.floor(Math.random() * 999) + 1,
       }).then(res => {
         return res.query.mostviewed.map(({ title, count }) => ({ title, count }));
+      }).catch( async function(err) {
+        console.error(err);
       });
 
       console.log({result: word_result});
 
-      this.word = word_result[0].title;
+      if (word_result.length) {
+        this.word = word_result[0].title;
+      } else {
+        const rando_result = await wiki({
+          apiUrl: 'https://en.wikipedia.org/w/api.php'
+        }).random();
+
+        this.word = rando_result[0];
+      }
 
       const Page = await wiki({
         apiUrl: 'https://en.wikipedia.org/w/api.php'

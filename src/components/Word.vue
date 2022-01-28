@@ -3,7 +3,8 @@
     <div class="mb-3">
       <div class="w-20 text-xs rounded bg-gray-300 py-1 text-center lg:hidden">
         Keyboard
-        <input type="text" value="x" class="w-full absolute opacity-0 cursor-pointer left-0">
+        <input type="text" value="x" class="w-full absolute opacity-0 cursor-pointer left-0"
+        v-model="input_string" @click="removeKeyupListener">
       </div>
     </div>
 
@@ -16,7 +17,7 @@
           <!-- <input type="text" value="x" class="w-2 absolute opacity-0"> -->
 
           <button v-if=" ! letter.free"
-          @click="active_idx = idx"
+          @click="updateActiveIdx(idx)"
           type="button"
           class="border-solid w-6 h-6 md:w-8 md:h-8 md:text-lg flex justify-center items-center"
           :class="[
@@ -73,6 +74,7 @@ export default {
     return {
       word_status: [],
       active_idx: 0,
+      input_string: '',
     }
   },
 
@@ -91,8 +93,8 @@ export default {
       }, []);
     },
 
-    handleKeyup(event) {
-      switch (event.key) {
+    handleKey(key) {
+      switch (key) {
         case 'Backspace':
           if (this.word_status[this.active_idx].guess === ' ') {
             this.prevLetter();
@@ -113,11 +115,15 @@ export default {
           this.$emit('newWord');
           break;
         default:
-          if (event.key.length === 1 && /^[a-zA-Z]|[0-9]$/.test(event.key)) {
-            this.word_status[this.active_idx].guess = event.key.toUpperCase();
+          if (key.length === 1 && /^[a-zA-Z]|[0-9]$/.test(key)) {
+            this.word_status[this.active_idx].guess = key.toUpperCase();
             this.nextLetter();
           }
       }
+    },
+
+    handleKeyup(event) {
+      this.input_string = event.key;
     },
 
     nextLetter() {
@@ -138,6 +144,16 @@ export default {
       this.word_status.forEach(element => {
         element.guess = element.letter;
       });
+    },
+
+    removeKeyupListener() {
+      window.removeEventListener('keyup', this.handleKeyup);
+    },
+
+    updateActiveIdx(idx) {
+      this.active_idx = idx;
+
+      window.addEventListener('keyup', this.handleKeyup);
     }
   },
 
@@ -156,13 +172,20 @@ export default {
   watch: {
     word: function() {
       this.refreshWordStatus();
+    },
+
+    input_string: function(value) {
+      if (value.length) {
+        this.handleKey(value);
+        this.input_string = '';
+      }
     }
   },
 
   mounted() {
     this.refreshWordStatus();
 
-    window.addEventListener('keyup', this.handleKeyup)
+    window.addEventListener('keyup', this.handleKeyup);
   },
 }
 </script>
