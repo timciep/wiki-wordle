@@ -21,7 +21,7 @@
           :src="word_image" alt="?" class="float-left pr-3 pb-3"
           style="max-width: 10rem;">
 
-          {{ clean_word_summary }}
+          <div v-html="clean_word_summary"></div>
         </div>
 
         <div class="mt-1">
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <div class="text-xs text-center mt-12 mb-5">
+    <div class="text-sm text-center mt-12 mb-5">
       Created by
       <a href="https://www.timcieplowski.com/" target="_blank"
       class="text-blue-800 hover:text-blue-500">
@@ -124,7 +124,7 @@ export default {
       // Replace _not letter or number_ with "|".
       const words_or = this.clean_word.replace(/[^A-Za-z0-9]/g, '|');
       return this.word_summary.replace(new RegExp(words_or, 'ig'), (match) => {
-        return 'X'.repeat(match.length);
+        return '&FilledSmallSquare;'.repeat(match.length);
       });
     },
 

@@ -34,16 +34,29 @@
       Nice! You got it!
     </div>
 
+    <div class="mt-3 text-left">
+      <button class="py-1 px-3 text-md rounded"
+      style="background: #ececec;"
+      @click="show_keyboard = ! show_keyboard">
+        Keyboard
+        {{ !show_keyboard ? '&or;' : '&and;' }}
+      </button>
+
+      <keyboard v-show="show_keyboard"
+      @onKeyPress="handleKey"></keyboard>
+
+    </div>
+
     <div class="mt-3 text-left flex gap-3">
       <button type="button"
       v-if=" ! correctAnswer"
       @click="reveal()"
-      class="rounded bg-gray-800 hover:bg-gray-500 text-white text-sm py-1 px-2">
+      class="rounded bg-gray-800 hover:bg-gray-500 text-white text-md py-1 px-3">
         Reveal
         [enter]
       </button>
 
-      <button class="py-1 px-2 text-sm rounded bg-blue-800 hover:bg-blue-500 text-white"
+      <button class="py-1 px-3 text-md rounded bg-blue-800 hover:bg-blue-500 text-white"
         type="button"
         @click="$emit('newWord')">
           New [tab]
@@ -53,6 +66,7 @@
 </template>
 
 <script>
+import Keyboard from './Keyboard';
 const _ = require('lodash');
 
 export default {
@@ -62,11 +76,17 @@ export default {
     word: String
   },
 
+  components: {
+    Keyboard
+  },
+
   data() {
     return {
       word_status: [],
       active_idx: 0,
       input_string: '',
+
+      show_keyboard: false,
     }
   },
 
@@ -86,8 +106,10 @@ export default {
     },
 
     handleKey(key) {
+      console.log(key);
       switch (key) {
         case 'Backspace':
+        case '{bksp}':
           if (this.word_status[this.active_idx].guess === ' ') {
             this.prevLetter();
           } else {
@@ -157,7 +179,10 @@ export default {
   mounted() {
     this.refreshWordStatus();
 
-    window.addEventListener('keyup', event => this.handleKey(event.key));
+    window.addEventListener('keydown', event => {
+      event.preventDefault();
+      this.handleKey(event.key);
+    });
   },
 }
 </script>
