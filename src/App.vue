@@ -23,6 +23,14 @@
 
           {{ clean_word_summary }}
         </div>
+
+        <div class="mt-2">
+          <a :href="word_url" target="_blank"
+          class="text-blue-800 hover:text-blue-500">
+            Full Article
+            &nearr;
+          </a>
+        </div>
       </div>
     </div>
 
@@ -113,7 +121,8 @@ export default {
 
   computed: {
     clean_word_summary: function() {
-      const words_or = this.clean_word.replace(' ', '|');
+      // Replace _not letter or number_ with "|".
+      const words_or = this.clean_word.replace(/[^A-Za-z0-9]/g, '|');
       return this.word_summary.replace(new RegExp(words_or, 'ig'), (match) => {
         return 'X'.repeat(match.length);
       });

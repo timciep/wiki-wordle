@@ -1,13 +1,5 @@
 <template>
   <div>
-    <div class="mb-3">
-      <div class="w-20 text-xs rounded bg-gray-300 py-1 text-center lg:hidden">
-        Keyboard
-        <input type="text" value="x" class="w-full absolute opacity-0 cursor-pointer left-0"
-        v-model="input_string" @click="removeKeyupListener">
-      </div>
-    </div>
-
     <div class="flex flex-wrap gap-1">
       <div v-for="letter, idx in word_status" :key="idx"
       :class="[
@@ -17,7 +9,7 @@
           <!-- <input type="text" value="x" class="w-2 absolute opacity-0"> -->
 
           <button v-if=" ! letter.free"
-          @click="updateActiveIdx(idx)"
+          @click="active_idx = idx"
           type="button"
           class="border-solid w-6 h-6 md:w-8 md:h-8 md:text-lg flex justify-center items-center"
           :class="[
@@ -122,10 +114,6 @@ export default {
       }
     },
 
-    handleKeyup(event) {
-      this.input_string = event.key;
-    },
-
     nextLetter() {
       this.active_idx = Math.min(this.word.length - 1, this.active_idx + 1);
       if (this.word_status[this.active_idx].free) {
@@ -145,16 +133,6 @@ export default {
         element.guess = element.letter;
       });
     },
-
-    removeKeyupListener() {
-      window.removeEventListener('keyup', this.handleKeyup);
-    },
-
-    updateActiveIdx(idx) {
-      this.active_idx = idx;
-
-      window.addEventListener('keyup', this.handleKeyup);
-    }
   },
 
   computed: {
@@ -174,18 +152,12 @@ export default {
       this.refreshWordStatus();
     },
 
-    input_string: function(value) {
-      if (value.length) {
-        this.handleKey(value);
-        this.input_string = '';
-      }
-    }
   },
 
   mounted() {
     this.refreshWordStatus();
 
-    window.addEventListener('keyup', this.handleKeyup);
+    window.addEventListener('keyup', event => this.handleKey(event.key));
   },
 }
 </script>
