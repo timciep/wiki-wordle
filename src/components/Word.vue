@@ -106,7 +106,6 @@ export default {
     },
 
     handleKey(key) {
-      console.log(key);
       switch (key) {
         case 'Backspace':
         case '{bksp}':
