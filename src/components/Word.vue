@@ -53,6 +53,7 @@
       type="button"
       @click="hint()">
         Hint
+        <span class="text-xs">[SHIFT]</span>
       </button>
 
       <button type="button"
@@ -60,13 +61,14 @@
       @click="reveal()"
       class="rounded bg-gray-800 hover:bg-gray-500 text-white text-md py-1 px-3">
         Reveal
-        [enter]
+        <span class="text-xs">[ENTER]</span>
       </button>
 
       <button class="py-1 px-3 text-md rounded bg-green-800 hover:bg-green-500 text-white"
       type="button"
       @click="$emit('newWord')">
-        New [tab]
+        New
+        <span class="text-xs">[TAB]</span>
       </button>
     </div>
   </div>
@@ -113,6 +115,7 @@ export default {
     },
 
     handleKey(key) {
+      // console.log(key);
       switch (key) {
         case 'Backspace':
         case '{bksp}':
@@ -133,6 +136,9 @@ export default {
           break;
         case 'Tab':
           this.$emit('newWord');
+          break;
+        case 'Shift':
+          this.hint();
           break;
         default:
           if (key.length === 1 && /^[a-zA-Z]|[0-9]$/.test(key)) {
